@@ -43,6 +43,7 @@ export default new Router({
             },
             children: [
                 {
+                    name: 'dashboard',
                     path: '/dashboard',
                     component: Dashboard
                 },
@@ -51,12 +52,31 @@ export default new Router({
         {
             path: '/login',
             name: 'login',
-            component: Login
+            component: Login,
+            beforeEnter: (to, from, next) => {
+                firebase.auth().onAuthStateChanged( user => {
+                    if (!user) {
+                        next();
+                    } else {
+                        next({ name: 'dashboard' });
+                    }
+                })
+            },
         },
         {
             path: '/register',
             name: 'register',
-            component: Register
+            component: Register,
+            beforeEnter: (to, from, next) => {
+                firebase.auth().onAuthStateChanged(user => {
+                    if (!user) {
+                        next();
+                    } else {
+                        console.log(user);
+                        next({ name: 'dashboard' });
+                    }
+                })
+            },
         },
         {
             path: '/about',

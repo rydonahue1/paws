@@ -25,8 +25,6 @@
 </template>
 
 <script>
-    import firebase from "firebase";
-
     export default {
         name: "Register",
         data: () => ({
@@ -47,20 +45,21 @@
         methods: {
             register() {
                 if (this.$refs.form.validate()) {
-                    this.loading    = true;
-                    firebase.auth()
-                        .createUserWithEmailAndPassword(this.email, this.password)
-                        .then(response => {
-                            console.log(response);
-                            this.loading = false;
-                            this.$router.push({ path: '/dashboard' });
-                        })
-                        .catch(error => {
-                            this.alert.message = error.message;
-                            this.alert.type    = 'error';
-                            this.alert.show    = true;
-                            this.loading       = false;
-                        });
+                    this.loading = true;
+                    
+                    this.$store.dispatch({
+                        type: 'registerUser',
+                        email: this.email,
+                        password: this.password,
+                    }).then(() => {
+                        this.loading = false;
+                        this.$router.push({ path: '/dashboard' });
+                    }).catch(error => {
+                        this.alert.message = error.message;
+                        this.alert.type    = 'error';
+                        this.alert.show    = true;
+                        this.loading       = false;
+                    });
                 }
             },
             reset() {
