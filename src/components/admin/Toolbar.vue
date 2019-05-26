@@ -1,6 +1,6 @@
 <template>
     <v-toolbar flat app>
-        <v-btn flat fab small>
+        <v-btn flat icon>
             <v-icon>menu</v-icon>
         </v-btn>
         <v-toolbar-title class="headline text-uppercase">
@@ -8,23 +8,92 @@
             <span class="font-weight-light">Suite</span>
         </v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn flat href="/login">
-            <span>Sign In</span>
-            <v-icon right>exit_to_app</v-icon>
-        </v-btn>
-        <v-btn flat href="/register">
-            <span>Register</span>
-            <v-icon right>exit_to_app</v-icon>
-        </v-btn>
+        <v-toolbar-items>
+            <v-menu offset-y>
+                <template v-slot:activator="{ on }">
+                    <v-btn flat color="secondary" dark v-on="on">
+                        <div v-if="user.name" class="user">
+                            <v-avatar size="36px">
+                                <img
+                                    v-if="user.avatar"
+                                    :src="user.avatar"
+                                    alt="Avatar"
+                                >
+                            </v-avatar>
+                            <span>{{ user.name }}</span>
+                        </div>
+                        <v-icon right>arrow_drop_down</v-icon>
+                    </v-btn>
+                </template>
+                <v-list>
+                    <v-list-tile
+                        v-for="(item, index) in settingsMenu"
+                        :key="index"
+                        @click="signOut"
+                    >
+                        <v-list-tile-action>
+                            <v-icon left>{{ item.icon }}</v-icon>
+                        </v-list-tile-action>
+                        <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                    </v-list-tile>
+                </v-list>
+            </v-menu>
+        </v-toolbar-items>
     </v-toolbar>
 </template>
 
 <script>
     export default {
         name: "Toolbar",
-        data: () => ({})
+        data: () => ({
+            loading: false,
+            settingsMenu: [
+                { title: "Sign Out", icon: "exit_to_app", click: "signOut" }
+            ]
+        }),
+        computed: {
+            user() {
+                return {
+                    name: this.$store.state.auth.user.displayName
+                        ? this.$store.state.auth.user.displayName
+                        : 'Settings',
+                    avatar: this.$store.state.auth.user.photoURL
+                        ? this.$store.state.auth.user.photoURL
+                        : null
+                };
+            },
+            avatar() {
+                return this.$store.state.auth.user.displayName
+                    ? this.$store.state.auth.user.displayName
+                    : null;
+            }
+        },
+        methods: {
+            signOut() {
+                this.$store
+                    .dispatch({
+                        type: "signOut"
+                    })
+                    .then(() => {
+                        this.loading = false;
+                        this.$router.push({ path: "/login" });
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.loading = false;
+                    });
+            }
+        }
     };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.user {
+    font-size: 1rem;
+    text-transform: uppercase;
+
+    span {
+        margin-left: 1rem;
+    }
+}
 </style>
