@@ -1,7 +1,7 @@
 <template>
     <v-content>
         <Toolbar></Toolbar>
-        <v-container>
+        <v-container fluid>
             <router-view></router-view>
         </v-container>
     </v-content>

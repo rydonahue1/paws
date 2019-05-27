@@ -8,7 +8,9 @@ import Login from '@/components/Login.vue'
 import Register from '@/components/Register.vue'
 
 import Admin from '@/components/admin/Admin.vue'
+import Signout from '@/components/admin/Signout.vue'
 import Dashboard from '@/components/admin/Dashboard.vue'
+import EditRescue from '@/components/admin/rescue/EditRescue.vue'
 
 Vue.use(Router)
 
@@ -46,6 +48,16 @@ export default new Router({
                     name: 'dashboard',
                     path: '/dashboard',
                     component: Dashboard
+                },
+                {
+                    name: 'signout',
+                    path: '/signout',
+                    component: Signout
+                },
+                {
+                    name: 'editRescue',
+                    path: '/rescue/edit',
+                    component: EditRescue
                 },
             ]
         },

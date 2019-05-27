@@ -24,11 +24,11 @@
                     </template>
                     <v-list>
                         <v-subheader>Settings</v-subheader>
-                        <v-list-tile v-for="(item, index) in settingsMenu" :key="index" @click="signOut">
-                            <v-list-tile-action>
-                                <v-icon left>{{ item.icon }}</v-icon>
-                            </v-list-tile-action>
+                        <v-list-tile v-for="(item, index) in settingsMenu" :key="index" router :to="item.route">
                             <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                            <v-list-tile-action>
+                                <v-icon right>{{ item.icon }}</v-icon>
+                            </v-list-tile-action>
                         </v-list-tile>
                     </v-list>
                 </v-menu>
@@ -49,7 +49,8 @@
             drawer: true,
             loading: false,
             settingsMenu: [
-                { title: "Sign Out", icon: "exit_to_app", click: "signOut" }
+                { title: "Rescue", icon: "group", route: '/rescue/edit' },
+                { title: "Sign Out", icon: "exit_to_app", route: '/signout' }
             ]
         }),
         computed: {
@@ -69,22 +70,6 @@
                     : null;
             }
         },
-        methods: {
-            signOut() {
-                this.$store
-                    .dispatch({
-                        type: "signOut"
-                    })
-                    .then(() => {
-                        this.loading = false;
-                        this.$router.push({ path: "/login" });
-                    })
-                    .catch(error => {
-                        console.log(error);
-                        this.loading = false;
-                    });
-            }
-        }
     };
 </script>
 
