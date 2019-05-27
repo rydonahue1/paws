@@ -1,51 +1,52 @@
 <template>
-    <v-toolbar flat app>
-        <v-btn flat icon>
-            <v-icon>menu</v-icon>
-        </v-btn>
-        <v-toolbar-title class="headline text-uppercase">
-            <span class="font-weight-bold">Shelter</span>
-            <span class="font-weight-light">Suite</span>
-        </v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-toolbar-items>
-            <v-menu offset-y>
-                <template v-slot:activator="{ on }">
-                    <v-btn flat color="secondary" dark v-on="on">
-                        <div v-if="user.name" class="user">
-                            <v-avatar size="36px">
-                                <img
-                                    v-if="user.avatar"
-                                    :src="user.avatar"
-                                    alt="Avatar"
-                                >
-                            </v-avatar>
-                            <span>{{ user.name }}</span>
-                        </div>
-                        <v-icon right>arrow_drop_down</v-icon>
-                    </v-btn>
-                </template>
-                <v-list>
-                    <v-list-tile
-                        v-for="(item, index) in settingsMenu"
-                        :key="index"
-                        @click="signOut"
-                    >
-                        <v-list-tile-action>
-                            <v-icon left>{{ item.icon }}</v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                    </v-list-tile>
-                </v-list>
-            </v-menu>
-        </v-toolbar-items>
-    </v-toolbar>
+    <nav>
+        <v-toolbar flat app>
+            <v-btn flat icon @click="drawer = !drawer">
+                <v-icon>menu</v-icon>
+            </v-btn>
+            <v-toolbar-title class="headline text-uppercase">
+                <span class="font-weight-bold">Shelter</span>
+                <span class="font-weight-light">Suite</span>
+            </v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-toolbar-items>
+                <v-menu offset-y elevation-1>
+                    <template v-slot:activator="{ on }">
+                        <v-btn flat color="secondary" dark v-on="on">
+                            <div v-if="user.name" class="user">
+                                <v-avatar size="36px">
+                                    <img v-if="user.avatar" :src="user.avatar" alt="Avatar">
+                                </v-avatar>
+                                <span>{{ user.name }}</span>
+                            </div>
+                            <v-icon right>arrow_drop_down</v-icon>
+                        </v-btn>
+                    </template>
+                    <v-list>
+                        <v-subheader>Settings</v-subheader>
+                        <v-list-tile v-for="(item, index) in settingsMenu" :key="index" @click="signOut">
+                            <v-list-tile-action>
+                                <v-icon left>{{ item.icon }}</v-icon>
+                            </v-list-tile-action>
+                            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                        </v-list-tile>
+                    </v-list>
+                </v-menu>
+            </v-toolbar-items>
+        </v-toolbar>
+        <Drawer :drawer="drawer"></Drawer>
+    </nav>
 </template>
 
 <script>
+    import Drawer from './Drawer'
     export default {
         name: "Toolbar",
+        components: {
+            Drawer,
+        },
         data: () => ({
+            drawer: true,
             loading: false,
             settingsMenu: [
                 { title: "Sign Out", icon: "exit_to_app", click: "signOut" }

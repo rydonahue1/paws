@@ -1,19 +1,7 @@
 <template>
-    <v-navigation-drawer app permanent dark class="secondary">
-        <v-list class="pa-1">
-            <v-list-tile avatar>
-                <v-list-tile-avatar>
-                    <img src="https://randomuser.me/api/portraits/men/86.jpg">
-                </v-list-tile-avatar>
-
-                <v-list-tile-content>
-                    <v-list-tile-title>John Leider</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-        </v-list>
-
+    <v-navigation-drawer v-model="drawer" app dark class="secondary">
         <v-list>
-            <v-list-tile v-for="item in items" :key="item.title">
+            <v-list-tile v-for="item in items" :key="item.title" router :to="item.route">
                 <v-list-tile-action>
                     <v-icon>{{ item.icon }}</v-icon>
                 </v-list-tile-action>
@@ -28,15 +16,16 @@
 <script>
     export default {
         name: "Drawer",
-        data () {
-            return {
-                items: [
-                    { title: 'Dashboard', icon: 'dashboard' },
-                    { title: 'Account', icon: 'account_box' },
-                    { title: 'Admin', icon: 'gavel' }
-                ]
-            }
-        }
+        props: {
+            drawer: Boolean,
+        },
+        data: () => ({
+            items: [
+                { title: 'Home', icon: 'dashboard', route: '/' },
+                { title: 'Page', icon: 'account_box', route: '/page' },
+                { title: 'Another Page', icon: 'gavel', route: '/page' }
+            ]
+        }),
     }
 </script>
 

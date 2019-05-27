@@ -9,20 +9,19 @@ export default {
 
     },
     mutations: {
-        setUser(state, data) {
-            console.log(data.user);
-            state.token = data.token
-            state.user = data.user;
+        setUser(state, payload) {
+            state.token = payload.token
+            state.user = payload.user;
         },
         unsetUser(state) {
             state.user = {};
         }
     },
     actions: {
-        registerUserWithEmail(context, data) {
+        registerUserWithEmail(context, payload) {
             return new Promise((resolve, reject) => {
                 firebase.auth()
-                    .createUserWithEmailAndPassword(data.email, data.password)
+                    .createUserWithEmailAndPassword(payload.email, payload.password)
                     .then(response => {
                         context.commit({
                             type: 'setUser',
@@ -36,10 +35,10 @@ export default {
                     });
             });
         },
-        signinUserWithEmail(context, data) {
+        signinUserWithEmail(context, payload) {
             return new Promise((resolve, reject) => {
                 firebase.auth()
-                    .signInWithEmailAndPassword(data.email, data.password)
+                    .signInWithEmailAndPassword(payload.email, payload.password)
                     .then(response => {
                         context.commit({
                             type: 'setUser',
