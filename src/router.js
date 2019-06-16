@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import firebase from 'firebase'
+import firebase from '@/fire'
 import Frontend from '@/components/frontend/Frontend.vue'
 import Home from '@/components/frontend/Home.vue'
 import Page from '@/components/frontend/Page.vue'

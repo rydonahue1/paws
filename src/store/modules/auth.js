@@ -1,4 +1,5 @@
-import firebase from 'firebase'
+import firebase from '@/fire'
+
 
 export default {
     state: {
