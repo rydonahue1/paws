@@ -1,9 +1,11 @@
 <template>
     <v-content>
         <Toolbar></Toolbar>
-        <v-container fluid>
+        <v-layout align-start row fill-height wrap>
+            <v-flex xs12 fill-height>
             <router-view></router-view>
-        </v-container>
+            </v-flex>
+        </v-layout>
     </v-content>
 </template>
 

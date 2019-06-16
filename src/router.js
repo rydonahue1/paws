@@ -10,6 +10,7 @@ import Register from '@/components/Register.vue'
 import Admin from '@/components/admin/Admin.vue'
 import Signout from '@/components/admin/Signout.vue'
 import Dashboard from '@/components/admin/Dashboard.vue'
+import FindRescue from '@/components/admin/rescue/FindRescue.vue'
 import EditRescue from '@/components/admin/rescue/EditRescue.vue'
 
 Vue.use(Router)
@@ -37,11 +38,13 @@ export default new Router({
             name: 'admin',
             component: Admin,
             beforeEnter: (to, from, next) => {
-                if (firebase.auth().currentUser) {
-                    next();
-                } else {
-                    next({ name: 'login' });
-                }
+                firebase.auth().onAuthStateChanged(user => {
+                    if (user) {
+                        next();
+                    } else {
+                        next({ name: 'login' });
+                    }
+                })
             },
             children: [
                 {
@@ -53,6 +56,11 @@ export default new Router({
                     name: 'signout',
                     path: '/signout',
                     component: Signout
+                },
+                {
+                    name: 'findRescue',
+                    path: '/rescue/find',
+                    component: FindRescue
                 },
                 {
                     name: 'editRescue',
