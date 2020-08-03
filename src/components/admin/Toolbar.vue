@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <v-toolbar flat app>
+        <v-app-bar flat app>
             <v-btn flat icon @click="drawer = !drawer">
                 <v-icon>menu</v-icon>
             </v-btn>
@@ -33,7 +33,7 @@
                     </v-list>
                 </v-menu>
             </v-toolbar-items>
-        </v-toolbar>
+        </v-app-bar>
         <Drawer :drawer="drawer"></Drawer>
     </nav>
 </template>

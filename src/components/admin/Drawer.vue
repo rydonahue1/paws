@@ -1,14 +1,14 @@
 <template>
     <v-navigation-drawer v-model="drawer" app dark class="secondary">
         <v-list>
-            <v-list-tile v-for="item in items" :key="item.title" router :to="item.route">
-                <v-list-tile-action>
+            <v-list-item v-for="item in items" :key="item.title" router :to="item.route">
+                <v-list-item-icon>
                     <v-icon>{{ item.icon }}</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
+                </v-list-item-icon>
+                <v-list-item-content>
+                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
         </v-list>
     </v-navigation-drawer>
 </template>
