@@ -1,0 +1,39 @@
+[debug] [2020-08-03T02:39:00.372Z] ----------------------------------------------------------------------
+[debug] [2020-08-03T02:39:00.374Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\rydon\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2020-08-03T02:39:00.374Z] CLI Version:   8.6.0
+[debug] [2020-08-03T02:39:00.375Z] Platform:      win32
+[debug] [2020-08-03T02:39:00.375Z] Node Version:  v14.7.0
+[debug] [2020-08-03T02:39:00.376Z] Time:          Sun Aug 02 2020 22:39:00 GMT-0400 (Eastern Daylight Time)
+[debug] [2020-08-03T02:39:00.376Z] ----------------------------------------------------------------------
+[debug] [2020-08-03T02:39:00.376Z] 
+[debug] [2020-08-03T02:39:00.384Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-08-03T02:39:00.385Z] > authorizing via signed-in user
+[debug] [2020-08-03T02:39:00.385Z] [iam] checking project paws-e6c4f for permissions ["firebase.projects.get"]
+[debug] [2020-08-03T02:39:00.389Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/paws-e6c4f:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2020-08-03T02:39:00.623Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Mon, 03 Aug 2020 02:38:56 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=159","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-08-03T02:39:00.625Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/paws-e6c4f  
+ 
+[debug] [2020-08-03T02:39:00.844Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Mon, 03 Aug 2020 02:38:56 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Serving from 'C:\Users\rydon\Documents\code\paws'...
+[info] 
+[debug] [2020-08-03T02:39:00.849Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/paws-e6c4f/webApps/-/config  
+ 
+[debug] [2020-08-03T02:39:01.354Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Mon, 03 Aug 2020 02:38:57 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  hosting: Serving hosting files from: dist {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mdist\u001b[22m"}}
+[info] +  hosting: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[warn] !  Your requested "node" version "8" doesn't match your global version "14" {"metadata":{"emulator":{"name":"functions"},"message":"Your requested \"node\" version \"8\" doesn't match your global version \"14\""}}
+[info] i  functions: Watching "C:\Users\rydon\Documents\code\paws\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"C:\\Users\\rydon\\Documents\\code\\paws\\functions\" for Cloud Functions..."}}
+[debug] [2020-08-03T02:39:02.913Z] [worker-pool] addWorker(~diagnostic~) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(~diagnostic~)"}}
+[debug] [2020-08-03T02:39:02.913Z] [worker-pool] Adding worker with key ~diagnostic~, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key ~diagnostic~, total=1"}}
+[debug] [2020-08-03T02:39:02.913Z] [worker-pool] submitWork(triggerId=) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitWork(triggerId=)"}}
+[debug] [2020-08-03T02:39:02.914Z] [worker-~diagnostic~-2f6203b3-2ce5-41b1-8ba7-a33f55f4d442]: Assigning socketPath: \\?\pipe\C:\Users\rydon\Documents\code\paws\functions\19628 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-~diagnostic~-2f6203b3-2ce5-41b1-8ba7-a33f55f4d442]: Assigning socketPath: \\\\?\\pipe\\C:\\Users\\rydon\\Documents\\code\\paws\\functions\\19628"}}
+[debug] [2020-08-03T02:39:02.914Z] [worker-~diagnostic~-2f6203b3-2ce5-41b1-8ba7-a33f55f4d442]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-~diagnostic~-2f6203b3-2ce5-41b1-8ba7-a33f55f4d442]: BUSY"}}
+[debug] [2020-08-03T02:39:03.356Z] [runtime-status] [19628] Functions runtime initialized. {"cwd":"C:\\Users\\rydon\\Documents\\code\\paws\\functions","node_version":"14.7.0"} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [19628] Functions runtime initialized. {\"cwd\":\"C:\\\\Users\\\\rydon\\\\Documents\\\\code\\\\paws\\\\functions\",\"node_version\":\"14.7.0\"}"}}
+[debug] [2020-08-03T02:39:03.358Z] [runtime-status] [19628] Disabled runtime features: undefined {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [19628] Disabled runtime features: undefined"}}
+[debug] [2020-08-03T02:39:03.362Z] [runtime-status] [19628] Resolved module firebase-admin {"declared":true,"installed":true,"version":"7.0.0","resolution":"C:\\Users\\rydon\\Documents\\code\\paws\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [19628] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"7.0.0\",\"resolution\":\"C:\\\\Users\\\\rydon\\\\Documents\\\\code\\\\paws\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[warn] !  The Cloud Functions emulator requires the module "firebase-admin" to be version >8.9.0 so your version is too old. You can probably fix this by running "npm install firebase-admin@latest" in your functions directory. {"metadata":{"emulator":{"name":"functions"},"message":"The Cloud Functions emulator requires the module \"firebase-admin\" to be version >8.9.0 so your version is too old. You can probably fix this by running \"npm install firebase-admin@latest\" in your functions directory."}}
+[info] i  functions: Your functions could not be parsed due to an issue with your node_modules (see above) {"metadata":{"emulator":{"name":"functions"},"message":"Your functions could not be parsed due to an issue with your node_modules (see above)"}}
+[debug] [2020-08-03T02:39:03.391Z] [worker-~diagnostic~-2f6203b3-2ce5-41b1-8ba7-a33f55f4d442]: exited {"metadata":{"emulator":{"name":"functions"},"message":"[worker-~diagnostic~-2f6203b3-2ce5-41b1-8ba7-a33f55f4d442]: exited"}}
+[debug] [2020-08-03T02:39:03.392Z] [worker-~diagnostic~-2f6203b3-2ce5-41b1-8ba7-a33f55f4d442]: FINISHED {"metadata":{"emulator":{"name":"functions"},"message":"[worker-~diagnostic~-2f6203b3-2ce5-41b1-8ba7-a33f55f4d442]: FINISHED"}}

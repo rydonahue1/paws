@@ -117,13 +117,14 @@
         methods: {
             mapAddress: _.debounce(function(address) {   
                 this.geocoder.geocode({ address: address }, (results, status) => {
-                    if (status !== 'OK' || !results[0]) {
-                        throw new Error(status);
+                    if (results.length > 0) {
+                        this.map.setCenter(results[0].geometry.location);
+                        this.marker.setPosition(results[0].geometry.location);
+                        //this.map.fitBounds(results[0].geometry.viewport);
+                    } else if (status !== 'OK' || !results[0]) {
+                        console.error(status);
+                        this.showMap = false;
                     }
-
-                    this.map.setCenter(results[0].geometry.location);
-                    //this.map.fitBounds(results[0].geometry.viewport);
-                    this.marker.setPosition(results[0].geometry.location);
                 });
             }, 500),
         }
