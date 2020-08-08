@@ -1,50 +1,58 @@
 <template>
-    <v-container fluid grid-list-lg>
+    <v-container>
         <h1 class="font-weight-light text-uppercase">Rescue</h1>
         <h3 class="text-uppercase primary--text text--darken-2">Tell us about your organization</h3>
-        <v-layout row wrap>
-            <v-flex sm8>
+        <v-row>
+            <v-col>
                 <v-card class="mt-3 pa-3">
-                    <v-container fluid grid-list-lg>
-                        <v-form>
-                            <v-layout row wrap>
-                                <v-flex sm6>
-                                    <v-text-field v-model.trim="rescue.name" label="Rescue Organization's Name" clearable required></v-text-field>
-                                </v-flex>
-                                <v-flex sm6>
-                                    <v-select v-model="rescue.type" :items="types" label="Type of Organization" clearable></v-select>
-                                </v-flex>
-                                <v-flex sm12>
-                                    <v-text-field v-model.lazy.trim="rescue.address.streetOne" label="Street 1" clearable required></v-text-field>
-                                </v-flex>
-                                <v-flex sm12>
-                                    <v-text-field v-model.lazy.trim="rescue.address.streetTwo" label="Street 2" clearable required></v-text-field>
-                                </v-flex>
-                                <v-flex sm12>
-                                    <v-text-field v-model.lazy.trim="rescue.address.city" label="City" clearable required></v-text-field>
-                                </v-flex>
-                                <v-flex sm6>
-                                    <v-select v-model.lazy.trim="rescue.address.state" :items="states" clearable label="State" ></v-select>
-                                </v-flex>
-                                <v-flex sm6>
-                                    <v-text-field v-model.lazy.trim="rescue.address.zip" label="Zipcode" clearable required></v-text-field>
-                                </v-flex>
-                                <v-flex sm6>
-                                    <v-text-field v-model.trim="rescue.website" prefix="http://" label="Website" clearable required></v-text-field>
-                                </v-flex>
-                                <v-flex sm6>
-                                    <v-text-field v-model.trim="rescue.donation" prefix="http://" label="Donation URL" clearable></v-text-field>
-                                </v-flex>
-                            </v-layout>
-                        </v-form>
-                    </v-container>
+                    <v-form>
+                        <v-row row wrap>
+                            <v-col>
+                                <v-text-field v-model.trim="rescue.name" label="Rescue Organization's Name" clearable required></v-text-field>
+                            </v-col>
+                            <v-col>
+                                <v-select v-model="rescue.type" :items="types" label="Type of Organization" clearable></v-select>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-text-field v-model.lazy.trim="rescue.address.streetOne" label="Street 1" clearable required></v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-text-field v-model.lazy.trim="rescue.address.streetTwo" label="Street 2" clearable required></v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-text-field v-model.lazy.trim="rescue.address.city" label="City" clearable required></v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-select v-model.lazy.trim="rescue.address.state" :items="states" clearable label="State" ></v-select>
+                            </v-col>
+                            <v-col>
+                                <v-text-field v-model.lazy.trim="rescue.address.zip" label="Zipcode" clearable required></v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-text-field v-model.trim="rescue.website" prefix="http://" label="Website" clearable required></v-text-field>
+                            </v-col>
+                            <v-col>
+                                <v-text-field v-model.trim="rescue.donation" prefix="http://" label="Donation URL" clearable></v-text-field>
+                            </v-col>
+                        </v-row>
+                    </v-form>
                 </v-card>
-            </v-flex>
-            <v-flex sm4 d-flex>
-                <div  v-show="showMap" class="mt-3" ref="map" fill-height>
+            </v-col>
+            <v-col>
+                <div v-show="showMap" class="mt-3" ref="map" style="height: 100%">
                 </div>
-            </v-flex>
-        </v-layout>
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 
@@ -117,6 +125,7 @@
         methods: {
             mapAddress: _.debounce(function(address) {   
                 this.geocoder.geocode({ address: address }, (results, status) => {
+                    console.log(results);
                     if (results.length > 0) {
                         this.map.setCenter(results[0].geometry.location);
                         this.marker.setPosition(results[0].geometry.location);

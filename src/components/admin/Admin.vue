@@ -1,22 +1,21 @@
 <template>
-    <v-content>
-        <Toolbar></Toolbar>
+    <v-main>
         <v-layout align-start row fill-height wrap>
             <v-flex xs12 fill-height>
-            <router-view></router-view>
+            <v-content>
+                <v-container>
+                    <h1>Dashboard</h1>
+                </v-container>
+            </v-content>
             </v-flex>
         </v-layout>
-    </v-content>
+    </v-main>
 </template>
 
 <script>
-    import Toolbar from "./Toolbar";
 
     export default {
         name: "Admin",
-        components: {
-            Toolbar,
-        }
     };
 </script>
 

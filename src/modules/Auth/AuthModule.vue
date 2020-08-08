@@ -9,9 +9,11 @@
 </template>
 
 <script>
+
     export default {
-        name: "Frontend",
+        name: "FacilityModule",
     };
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

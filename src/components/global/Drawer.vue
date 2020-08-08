@@ -16,16 +16,19 @@
 <script>
     export default {
         name: "Drawer",
-        props: {
-            drawer: Boolean,
-        },
         data: () => ({
             items: [
                 { title: 'Dashboard', icon: 'dashboard', route: '/dashboard' },
                 { title: 'Page', icon: 'account_box', route: '/page' },
                 { title: 'Another Page', icon: 'gavel', route: '/page' }
-            ]
+            ],
         }),
+        computed: {
+            drawer: {
+                get: vm => vm.$store.getters.drawerState,
+                set: vm => vm.drawer,
+            }
+        }
     }
 </script>
 
