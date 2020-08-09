@@ -1,10 +1,6 @@
 <template>
     <v-main>
-        <v-layout align-start row fill-height wrap>
-            <v-flex xs12 fill-height>
-            <router-view></router-view>
-            </v-flex>
-        </v-layout>
+        <router-view></router-view>
     </v-main>
 </template>
 

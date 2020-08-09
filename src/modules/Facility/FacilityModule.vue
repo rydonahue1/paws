@@ -1,11 +1,7 @@
 <template>
     <v-main>
-        <v-layout align-start row fill-height wrap>
-            <v-flex xs12 fill-height>
-            <h1>Fac Module</h1>
-            <router-view></router-view>
-            </v-flex>
-        </v-layout>
+        <h1>Facility Module</h1>
+        <router-view></router-view>
     </v-main>
 </template>
 

@@ -1,4 +1,4 @@
-import firebase from '@/fire';
+import { auth } from '@/fire';
 import FacilityModule from "./FacilityModule.vue";
 import EditRescue from "./views/EditRescue.vue";
 import FindRescue from "./views/FindRescue.vue";
@@ -9,11 +9,11 @@ export default [
         name: 'facility',
         component: FacilityModule,
         beforeEnter: (to, from, next) => {
-            firebase.auth().onAuthStateChanged(user => {
+            auth.onAuthStateChanged(user => {
                 if (user) {
                     next();
                 } else {
-                    next({ name: 'login' });
+                    next({ name: 'auth.login' });
                 }
             })
         },

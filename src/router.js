@@ -1,13 +1,14 @@
+import _ from "lodash";
 import Vue from 'vue'
 import Router from 'vue-router'
-import firebase from '@/fire'
+import store from './store/store'
+
 import Frontend from '@/components/frontend/Frontend.vue'
 import Home from '@/components/frontend/Home.vue'
 import Page from '@/components/frontend/Page.vue'
-
 import Admin from '@/components/admin/Admin.vue'
 
-import AuthRoutes from '@/modules/Auth/routes.js';
+import AuthRoutes from '@/modules/Auth/routes';
 import FacilityRoutes from '@/modules/Facility/routes.js';
 
 Vue.use(Router)
@@ -35,13 +36,12 @@ export default new Router({
             name: 'dashboard',
             component: Admin,
             beforeEnter: (to, from, next) => {
-                firebase.auth().onAuthStateChanged(user => {
-                    if (user) {
-                        next();
-                    } else {
-                        next({ name: 'auth.login' });
-                    }
-                })
+                console.log(store.state.auth.user)
+                if (!_.isEmpty(store.state.auth.user)) {
+                    next();
+                } else {
+                    next({ name: 'auth.login' });
+                }
             },
         },
         {

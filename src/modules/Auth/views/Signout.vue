@@ -11,13 +11,13 @@
         },
         methods: {
             signOut() {
-                this.$store.dispatch({
-                    type: "signOut"
-                }).then(() => {
-                    this.$router.push({ path: "/login" });
-                }).catch(error => {
-                    console.log(error);
-                });
+                this.$store
+                    .dispatch({ type: "signOut"})
+                    .then( () => {
+                        this.$router
+                            .push({ name: "auth.login" })
+                    })
+                    .catch( err => console.log(err) );
             }
         }
     };

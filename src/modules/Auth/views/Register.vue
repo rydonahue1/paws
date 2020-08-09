@@ -56,12 +56,14 @@
                         password: this.password,
                     }).then(() => {
                         this.loading = false;
-                        this.$router.push({ path: '/dashboard' });
+                        this.$router.push({ name: 'dashboard' });
                     }).catch(error => {
-                        this.alert.message = error.message;
-                        this.alert.type    = 'error';
-                        this.alert.show    = true;
-                        this.loading       = false;
+                        this.alert = {
+                            message: error.message,
+                            type: 'error',
+                            show: true,
+                        }
+                        this.loading = false;
                     });
                 }
             },
@@ -71,12 +73,14 @@
                     type: 'signinUserWithGoogle',
                 }).then(() => {
                     this.loading = false;
-                    this.$router.push({ path: '/dashboard' });
+                    this.$router.push({ name: 'dashboard' });
                 }).catch(error => {
-                    this.alert.message = error.message;
-                    this.alert.type    = 'error';
-                    this.alert.show    = true;
-                    this.loading       = false;
+                    this.alert = {
+                        message: error.message,
+                        type: 'error',
+                        show: true,
+                    }
+                    this.loading = false;
                 });
             },
             reset() {

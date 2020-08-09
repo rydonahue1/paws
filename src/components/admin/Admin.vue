@@ -1,13 +1,9 @@
 <template>
     <v-main>
         <v-layout align-start row fill-height wrap>
-            <v-flex xs12 fill-height>
-            <v-content>
-                <v-container>
-                    <h1>Dashboard</h1>
-                </v-container>
-            </v-content>
-            </v-flex>
+            <v-container>
+                <h1>Dashboard</h1>
+            </v-container>
         </v-layout>
     </v-main>
 </template>

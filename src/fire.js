@@ -14,4 +14,25 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-export default firebase;
+// utils
+const db = firebase.firestore()
+const auth = firebase.auth()
+
+// collection references
+// const usersCollection = db.collection('users')
+// const postsCollection = db.collection('posts')
+// const commentsCollection = db.collection('comments')
+// const likesCollection = db.collection('likes')
+
+// export utils/refs
+export {
+    db,
+    auth,
+    firebase,
+    // usersCollection,
+    // postsCollection,
+    // commentsCollection,
+    // likesCollection
+}
+
+//export default firebase;

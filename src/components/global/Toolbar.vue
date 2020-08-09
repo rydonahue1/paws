@@ -52,8 +52,8 @@
             drawer: true,
             loading: false,
             settingsMenu: [
-                { title: "Find Rescue", icon: "group", route: '/rescue/find' },
-                { title: "Rescue", icon: "group", route: '/rescue/edit' },
+                { title: "Find Rescue", icon: "group", route: '/facility/find' },
+                { title: "Rescue", icon: "group", route: '/facility/edit' },
                 { title: "Sign Out", icon: "exit_to_app", route: '/signout' }
             ]
         }),

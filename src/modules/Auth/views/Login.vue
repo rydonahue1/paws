@@ -64,7 +64,7 @@
                         password: this.password,
                     }).then(() => {
                         this.loading = false;
-                        this.$router.push({ path: '/dashboard' });
+                        this.$router.push({ name: 'dashboard' });
                     }).catch(error => {
                         this.alert.message = error.message;
                         this.alert.type    = 'error';
@@ -79,7 +79,7 @@
                     type: 'signinUserWithGoogle',
                 }).then(() => {
                     this.loading = false;
-                    this.$router.push({ path: '/dashboard' });
+                    this.$router.push({ name: 'dashboard' });
                 }).catch(error => {
                     this.alert.message = error.message;
                     this.alert.type    = 'error';

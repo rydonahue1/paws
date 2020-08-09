@@ -1,5 +1,6 @@
-import firebase from '@/fire'
+import { auth, db, firebase } from '@/fire'
 
+console.log(db);
 
 export default {
     state: {
@@ -16,13 +17,13 @@ export default {
         },
         unsetUser(state) {
             state.user = {};
+            state.token = '';
         }
     },
     actions: {
         registerUserWithEmail(context, payload) {
             return new Promise((resolve, reject) => {
-                firebase.auth()
-                    .createUserWithEmailAndPassword(payload.email, payload.password)
+                auth.createUserWithEmailAndPassword(payload.email, payload.password)
                     .then(response => {
                         context.commit({
                             type: 'setUser',
@@ -30,16 +31,14 @@ export default {
                             token: null,
                         });
                         resolve(response);
-                    })
-                    .catch(error => {
+                    }).catch(error => {
                         reject(error);
                     });
             });
         },
         signinUserWithEmail(context, payload) {
             return new Promise((resolve, reject) => {
-                firebase.auth()
-                    .signInWithEmailAndPassword(payload.email, payload.password)
+                auth.signInWithEmailAndPassword(payload.email, payload.password)
                     .then(response => {
                         context.commit({
                             type: 'setUser',
@@ -57,9 +56,8 @@ export default {
             return new Promise((resolve, reject) => {
 
                 var provider = new firebase.auth.GoogleAuthProvider();
-                
-                firebase.auth()
-                    .signInWithPopup(provider)
+
+                auth.signInWithPopup(provider)
                     .then(response => {
                         // The signed-in user info.
                         context.commit({
@@ -67,7 +65,7 @@ export default {
                             user: response.user,
                             token: response.credential.accessToken,
                         });
-                        resolve(response)
+                        resolve(response);
                     })
                     .catch(error => {
                         // Handle Errors here.
@@ -77,8 +75,7 @@ export default {
         },
         signOut(context) {
             return new Promise((resolve, reject) => {
-                firebase.auth()
-                    .signOut()
+                auth.signOut()
                     .then(response => {
                         context.commit({
                             type: 'unsetUser'

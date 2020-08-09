@@ -1,6 +1,7 @@
-import firebase from '@/fire';
+//import { auth } from '@/fire';
+import _ from "lodash";
 import AuthModule from "./AuthModule.vue";
-
+import store from "@/store/store";
 import Login from './views/Login.vue';
 import Register from './views/Register.vue';
 import Signout from './views/Signout.vue';
@@ -17,14 +18,11 @@ export default [
                 path: '/register',
                 component: Register,
                 beforeEnter: (to, from, next) => {
-                    firebase.auth().onAuthStateChanged(user => {
-                        if (!user) {
-                            next();
-                        } else {
-                            console.log(user);
-                            next({ name: 'dashboard' });
-                        }
-                    })
+                    if (_.isEmpty(store.state.auth.user)) {
+                        next();
+                    } else {
+                        next({ name: 'dashboard' });
+                    }
                 },
             },
             {
@@ -32,13 +30,11 @@ export default [
                 path: '/login',
                 component: Login,
                 beforeEnter: (to, from, next) => {
-                    firebase.auth().onAuthStateChanged( user => {
-                        if (!user) {
-                            next();
-                        } else {
-                            next({ name: 'dashboard' });
-                        }
-                    })
+                    if (_.isEmpty(store.state.auth.user)) {
+                        next();
+                    } else {
+                        next({ name: 'dashboard' });
+                    }
                 },
             },
             {
@@ -46,13 +42,11 @@ export default [
                 path: '/signout',
                 component: Signout,
                 beforeEnter: (to, from, next) => {
-                    firebase.auth().onAuthStateChanged(user => {
-                        if (user) {
-                            next();
-                        } else {
-                            next({ name: 'auth.login' });
-                        }
-                    })
+                    if (!_.isEmpty(store.state.auth.user)) {
+                        next();
+                    } else {
+                        next({ name: 'auth.login' });
+                    }
                 },
             },
         ]
