@@ -1,7 +1,7 @@
 
 export default {
     state: {
-        api: 'AIzaSyCn2UEaSNPqIJ5TKaW7TjC6ClS9lsuJ5tY',
+        api: process.env.GOOGLE_MAPS_KEY,
         places: [],
     },
     getters: {
