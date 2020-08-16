@@ -58,7 +58,9 @@
             ]
         }),
         computed: {
-            user: (vm) => _.isEmpty(vm.$store.state.auth.user) ? null : vm.$store.state.auth.user,
+            user() {
+                return _.isEmpty(this.$store.state.auth.user) ? null : this.$store.state.auth.user
+            }
         },
         methods: {
             toggleDrawer() {
