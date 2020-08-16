@@ -15,7 +15,7 @@
                     .dispatch({ type: "signOut"})
                     .then( () => {
                         this.$router
-                            .push({ name: "auth.login" })
+                            .push({ name: "login" })
                     })
                     .catch( err => console.log(err) );
             }

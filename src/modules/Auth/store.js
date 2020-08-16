@@ -1,6 +1,5 @@
-import { auth, db, firebase } from '@/fire'
+import { auth, firebase } from '@/fire'
 
-console.log(db);
 
 export default {
     state: {
@@ -12,12 +11,10 @@ export default {
     },
     mutations: {
         setUser(state, payload) {
-            state.token = payload.token
             state.user = payload.user;
         },
         unsetUser(state) {
             state.user = {};
-            state.token = '';
         }
     },
     actions: {
@@ -34,6 +31,12 @@ export default {
                     }).catch(error => {
                         reject(error);
                     });
+            });
+        },
+        setUser(context, user) {
+            context.commit({
+                type: 'setUser',
+                user: user,
             });
         },
         signinUserWithEmail(context, payload) {
@@ -63,7 +66,6 @@ export default {
                         context.commit({
                             type: 'setUser',
                             user: response.user,
-                            token: response.credential.accessToken,
                         });
                         resolve(response);
                     })
@@ -77,16 +79,17 @@ export default {
             return new Promise((resolve, reject) => {
                 auth.signOut()
                     .then(response => {
-                        context.commit({
-                            type: 'unsetUser'
-                        });
-                        resolve(response)
+                        context.commit({ type: 'unsetUser' });
+                        resolve(response);
                     })
                     .catch(error => {
                         // Handle Errors here.
                         reject(error);
                     });
             });
-        }
+        },
+        unsetUser(context) {
+            context.commit({ type: 'unsetUser' });
+        },
     }
 }

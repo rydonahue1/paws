@@ -36,12 +36,8 @@ export default new Router({
             name: 'dashboard',
             component: Admin,
             beforeEnter: (to, from, next) => {
-                console.log(store.state.auth.user)
-                if (!_.isEmpty(store.state.auth.user)) {
-                    next();
-                } else {
-                    next({ name: 'auth.login' });
-                }
+                if (!_.isEmpty(store.state.auth.user)) next();
+                else next({ name: 'login' });
             },
         },
         {

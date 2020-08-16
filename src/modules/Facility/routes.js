@@ -1,4 +1,6 @@
-import { auth } from '@/fire';
+import _ from "lodash";
+import store from "@/store/store";
+
 import FacilityModule from "./FacilityModule.vue";
 import EditRescue from "./views/EditRescue.vue";
 import FindRescue from "./views/FindRescue.vue";
@@ -9,13 +11,8 @@ export default [
         name: 'facility',
         component: FacilityModule,
         beforeEnter: (to, from, next) => {
-            auth.onAuthStateChanged(user => {
-                if (user) {
-                    next();
-                } else {
-                    next({ name: 'auth.login' });
-                }
-            })
+            if (!_.isEmpty(store.state.auth.user)) next()
+            else next({ name: 'login' })
         },
         children: [
             {

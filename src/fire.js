@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
+import store from '@/store/store'
 
 const firebaseConfig = {
     apiKey: "AIzaSyDyWFIA0kHZb4wdUw6yGLULwqmbnxZa2jU",
@@ -15,8 +16,19 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 // utils
-const db = firebase.firestore()
-const auth = firebase.auth()
+const db = firebase.firestore();
+const auth = firebase.auth();
+
+auth.onAuthStateChanged(function (user) {
+    if (user) {
+        console.log(user);
+        console.log('logged in');
+        store.dispatch('setUser', user);
+    } else {
+        console.log('loggedout');
+        store.dispatch('unsetUser');
+    }
+});
 
 // collection references
 // const usersCollection = db.collection('users')
