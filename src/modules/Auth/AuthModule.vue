@@ -8,7 +8,7 @@
                         <v-progress-linear v-if="loading" :indeterminate="true"></v-progress-linear>
                         <v-form v-model="valid" ref="form">
                             <v-card-title>
-                                <h1>Register</h1>
+                                <h1>{{ $route.name }}</h1>
                             </v-card-title>
                             <v-card-text>
                                 <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
@@ -65,6 +65,7 @@
                             password: this.password,
                         })
                         .then(() => {
+                            this.firebaseAddUser();
                             this.toggleLoading();
                             this.$router.push({ name: 'dashboard' });
                         })
