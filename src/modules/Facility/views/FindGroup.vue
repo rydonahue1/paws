@@ -19,7 +19,7 @@
     import gmapsInit from '@/utils/gmaps';
 
     export default {
-        name: "FindRescue",
+        name: "FindGroup",
         data: () => ({
             info: null,
             locations: []

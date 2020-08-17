@@ -61,7 +61,7 @@
     import _ from 'lodash';
 
     export default {
-        name: "EditRescue",
+        name: "EditGroup",
         data: () => ({
             rescue: {
                 name: '',

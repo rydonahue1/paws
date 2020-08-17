@@ -1,29 +1,29 @@
 import _ from "lodash";
 import store from "@/store/store";
 
-import FacilityModule from "./FacilityModule.vue";
-import EditRescue from "./views/EditRescue.vue";
-import FindRescue from "./views/FindRescue.vue";
+import GroupModule from "./GroupModule.vue";
+import EditGroup from "./views/EditGroup.vue";
+import FindGroup from "./views/FindGroup.vue";
 
 export default [
     {
-        path: '/facility',
-        name: 'facility',
-        component: FacilityModule,
+        path: '/group',
+        name: 'group',
+        component: GroupModule,
         beforeEnter: (to, from, next) => {
             if (!_.isEmpty(store.state.auth.user)) next()
             else next({ name: 'login' })
         },
         children: [
             {
-                name: 'facility.edit',
+                name: 'group.edit',
                 path: 'edit',
-                component: EditRescue
+                component: EditGroup
             },
             {
-                name: 'facility.find',
+                name: 'group.find',
                 path: 'find',
-                component: FindRescue
+                component: FindGroup
             },
         ]
     },

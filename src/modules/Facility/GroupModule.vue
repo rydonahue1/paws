@@ -1,6 +1,6 @@
 <template>
     <v-main>
-        <h1>Facility Module</h1>
+        <h1>Group Module</h1>
         <router-view></router-view>
     </v-main>
 </template>
@@ -8,7 +8,7 @@
 <script>
 
     export default {
-        name: "FacilityModule",
+        name: "GroupModule",
     };
 
 </script>
