@@ -6,9 +6,10 @@
 </template>
 
 <script>
-
     export default {
         name: "GroupModule",
+        data: () => ({
+        }),
     };
 
 </script>

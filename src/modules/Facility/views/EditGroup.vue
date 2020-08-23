@@ -8,41 +8,46 @@
                     <v-form>
                         <v-row row wrap>
                             <v-col>
-                                <v-text-field v-model.trim="rescue.name" label="Rescue Organization's Name" clearable required></v-text-field>
+                                <PlacesSearch @set-place="setPlace" />
+                            </v-col>
+                        </v-row>
+                        <v-row row wrap>
+                            <v-col>
+                                <v-text-field v-model.trim="group.name" label="Rescue Organization's Name" clearable required></v-text-field>
                             </v-col>
                             <v-col>
-                                <v-select v-model="rescue.type" :items="types" label="Type of Organization" clearable></v-select>
+                                <v-select v-model="group.type" :items="types" label="Type of Organization" clearable></v-select>
                             </v-col>
                         </v-row>
                         <v-row>
                             <v-col>
-                                <v-text-field v-model.lazy.trim="rescue.address.streetOne" label="Street 1" clearable required></v-text-field>
+                                <v-text-field v-model.lazy.trim="group.address.streetOne" label="Street 1" clearable required></v-text-field>
                             </v-col>
                         </v-row>
                         <v-row>
                             <v-col>
-                                <v-text-field v-model.lazy.trim="rescue.address.streetTwo" label="Street 2" clearable required></v-text-field>
+                                <v-text-field v-model.lazy.trim="group.address.streetTwo" label="Street 2" clearable required></v-text-field>
                             </v-col>
                         </v-row>
                         <v-row>
                             <v-col>
-                                <v-text-field v-model.lazy.trim="rescue.address.city" label="City" clearable required></v-text-field>
+                                <v-text-field v-model.lazy.trim="group.address.city" label="City" clearable required></v-text-field>
                             </v-col>
                         </v-row>
                         <v-row>
                             <v-col>
-                                <v-select v-model.lazy.trim="rescue.address.state" :items="states" clearable label="State" ></v-select>
+                                <v-select v-model.lazy.trim="group.address.state" :items="states" clearable label="State" ></v-select>
                             </v-col>
                             <v-col>
-                                <v-text-field v-model.lazy.trim="rescue.address.zip" label="Zipcode" clearable required></v-text-field>
+                                <v-text-field v-model.lazy.trim="group.address.postal_code" label="Zipcode" clearable required></v-text-field>
                             </v-col>
                         </v-row>
                         <v-row>
                             <v-col>
-                                <v-text-field v-model.trim="rescue.website" prefix="http://" label="Website" clearable required></v-text-field>
+                                <v-text-field v-model.trim="group.website" prefix="http://" label="Website" clearable required></v-text-field>
                             </v-col>
                             <v-col>
-                                <v-text-field v-model.trim="rescue.donation" prefix="http://" label="Donation URL" clearable></v-text-field>
+                                <v-text-field v-model.trim="group.donation" prefix="http://" label="Donation URL" clearable></v-text-field>
                             </v-col>
                         </v-row>
                     </v-form>
@@ -58,12 +63,17 @@
 
 <script>
     import gmapsInit from '@/utils/gmaps';
+    import PlacesSearch from './PlacesSearch';
     import _ from 'lodash';
 
     export default {
         name: "EditGroup",
+        components: { 
+            PlacesSearch
+        },
         data: () => ({
-            rescue: {
+            group: {
+                id: null,
                 name: '',
                 type: '',
                 address: {
@@ -71,15 +81,16 @@
                     streetTwo: '',
                     city: '',
                     state: '',
-                    zip: '',
+                    postal_code: '',
                 },
+                phone: null,
                 website: '',
+                geo: null,
             },
             showMap: false,
-            google: null,
             geocoder: null,
-            map: null,
             marker: null,
+            map: null,
         }),
         computed: {
             states() {
@@ -89,10 +100,10 @@
                 return this.$store.state.globals.organizationTypes
             },
             fullTextAddress() {
-                const street      = this.rescue.address.streetOne ? this.rescue.address.streetOne : '';
-                const city        = this.rescue.address.city ? this.rescue.address.city : '';
-                const state       = this.rescue.address.state ? this.rescue.address.state : '';
-                const zip         = this.rescue.address.zip ? this.rescue.address.zip : '';
+                const street      = this.group.address.streetOne ? this.group.address.streetOne : '';
+                const city        = this.group.address.city ? this.group.address.city : '';
+                const state       = this.group.address.state ? this.group.address.state : '';
+                const zip         = this.group.address.zip ? this.group.address.zip : '';
                 const textAddress = street + ' ' + city + ' ' + state + ' ' + zip
                 return textAddress.trim();
             }
@@ -109,13 +120,17 @@
         },
         async mounted() {
             try {
-                this.google = await gmapsInit();
-                this.geocoder = new this.google.maps.Geocoder();
-                this.map = new this.google.maps.Map(this.$refs.map, {
+                const google = await gmapsInit();
+                console.log(google);
+                const places = google.maps.places;
+
+                console.log(places);
+                this.geocoder = new google.maps.Geocoder();
+                this.map = new google.maps.Map(this.$refs.map, {
                     zoom: 16
                 });
 
-                this.marker = new this.google.maps.Marker({
+                this.marker = new google.maps.Marker({
                     map: this.map,
                 });     
             } catch (error) {
@@ -136,6 +151,19 @@
                     }
                 });
             }, 500),
+            setPlace(place) {
+                console.log(place)
+                this.group.id = place.place_id;
+                this.group.name = place.name;
+                this.group.address.streetOne = place.address_components[0].long_name + ' ' +place.address_components[1].long_name;
+                this.group.address.city = place.address_components[3].long_name;
+                this.group.address.state = place.address_components[5].short_name;
+                this.group.address.postal_code = place.address_components[7].short_name;
+                this.group.website = place.website;
+                this.group.geo = place.geometry.location.toJSON();
+                this.group.rating = place.rating;
+                this.group.phone = place.formatted_phone_number;
+            }
         }
     };
 </script>

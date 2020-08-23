@@ -3,7 +3,7 @@ import store from "@/store/store";
 
 import GroupModule from "./GroupModule.vue";
 import EditGroup from "./views/EditGroup.vue";
-import FindGroup from "./views/FindGroup.vue";
+import PlacesSearch from "./views/PlacesSearch.vue";
 
 export default [
     {
@@ -23,7 +23,7 @@ export default [
             {
                 name: 'group.find',
                 path: 'find',
-                component: FindGroup
+                component: PlacesSearch
             },
         ]
     },
