@@ -9,7 +9,8 @@ import Page from '@/components/frontend/Page.vue'
 import Admin from '@/components/admin/Admin.vue'
 
 import AuthRoutes from '@/modules/Auth/routes';
-import FacilityRoutes from '@/modules/Facility/routes.js';
+import OrgsRoutes from '@/modules/Orgs/routes.js';
+import UserRoutes from '@/modules/User/routes.js';
 
 Vue.use(Router)
 
@@ -48,7 +49,8 @@ export default new Router({
             // which is lazy-loaded when the route is visited.
             component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
         },
-        ...FacilityRoutes,
         ...AuthRoutes,
+        ...OrgsRoutes,
+        ...UserRoutes,
     ]
 })

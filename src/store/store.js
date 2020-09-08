@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 
 import auth from '@/modules/Auth/store'
-import facility from '@/modules/Facility/store'
+import orgs from '@/modules/Orgs/store'
 import globals from './modules/globals'
 import ui from './modules/ui'
 import places from './modules/places'
@@ -14,7 +14,7 @@ export default new Vuex.Store({
     plugins: [createPersistedState()],
     modules: {
         auth,
-        facility,
+        orgs,
         globals,
         ui,
         places,

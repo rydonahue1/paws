@@ -9,8 +9,8 @@
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn text href="/login" v-if="!user">
-                <span>Sign In</span>
-                <v-icon right>exit_to_app</v-icon>
+            <span>Sign In</span>
+            <v-icon right>exit_to_app</v-icon>
         </v-btn>
         <v-btn text href="/register" v-if="!user">
             <span>Register</span>
@@ -22,7 +22,11 @@
                     <v-btn color="secondary" text dark v-on="on">
                         <div v-if="user.displayName" class="user">
                             <v-avatar size="36px">
-                                <img v-if="user.photoURL" :src="user.photoURL" alt="Avatar">
+                                <img
+                                    v-if="user.photoURL"
+                                    :src="user.photoURL"
+                                    alt="Avatar"
+                                />
                             </v-avatar>
                             <span>{{ user.displayName }}</span>
                         </div>
@@ -31,7 +35,12 @@
                 </template>
                 <v-list>
                     <v-subheader>Settings</v-subheader>
-                    <v-list-item v-for="(item, index) in settingsMenu" :key="index" router :to="item.route">
+                    <v-list-item
+                        v-for="(item, index) in settingsMenu"
+                        :key="index"
+                        router
+                        :to="item.route"
+                    >
                         <v-list-item-title>{{ item.title }}</v-list-item-title>
                         <v-list-item-action>
                             <v-icon right>{{ item.icon }}</v-icon>
@@ -44,32 +53,34 @@
 </template>
 
 <script>
-    import _ from "lodash";
+import _ from "lodash";
 
-    export default {
-        name: "Toolbar",
-        data: () => ({
-            drawer: true,
-            loading: false,
-            settingsMenu: [
-                { title: "Find Rescue", icon: "group", route: '/group/find' },
-                { title: "Rescue", icon: "group", route: '/group/edit' },
-                { title: "Sign Out", icon: "exit_to_app", route: '/logout' }
-            ]
-        }),
-        computed: {
-            user() {
-                return _.isEmpty(this.$store.state.auth.user) ? null : this.$store.state.auth.user
-            }
-        },
-        methods: {
-            toggleDrawer() {
-                this.$store.dispatch({
-                    type: 'toggleDrawer',
-                })
-            },
+export default {
+    name: "Toolbar",
+    data: () => ({
+        drawer: true,
+        loading: false,
+        settingsMenu: [
+            { title: "Find Rescue", icon: "group", route: "/group/find" },
+            { title: "Rescue", icon: "group", route: "/group/edit" },
+            { title: "Sign Out", icon: "exit_to_app", route: "/logout" }
+        ]
+    }),
+    computed: {
+        user() {
+            return _.isEmpty(this.$store.state.auth.user)
+                ? null
+                : this.$store.state.auth.user;
         }
-    };
+    },
+    methods: {
+        toggleDrawer() {
+            this.$store.dispatch({
+                type: "toggleDrawer"
+            });
+        }
+    }
+};
 </script>
 
 <style scoped lang="scss">

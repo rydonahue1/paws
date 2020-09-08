@@ -3,6 +3,7 @@ import 'firebase/auth'
 import 'firebase/firestore'
 import store from '@/store/store'
 
+
 const firebaseConfig = {
     apiKey: "AIzaSyDyWFIA0kHZb4wdUw6yGLULwqmbnxZa2jU",
     authDomain: "paws-e6c4f.firebaseapp.com",
@@ -19,16 +20,14 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const auth = firebase.auth();
 
-auth.onAuthStateChanged(function (user) {
+auth.onAuthStateChanged(async function (user) {
     if (user) {
-        console.log(user);
-        console.log('logged in');
-        store.dispatch('setUser', user);
+        store.dispatch('getUser');
     } else {
-        console.log('loggedout');
-        store.dispatch('unsetUser');
+        store.commit('unsetUser');
     }
 });
+
 
 // collection references
 // const usersCollection = db.collection('users')
