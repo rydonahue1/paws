@@ -29,15 +29,15 @@
                             <router-view
                                 @reset="reset"
                                 @register-user-with-email="
-                                    registerUserWithEmail
+                                    signUpUserWithEmail
                                 "
-                                @signinUserWithEmail="signinUserWithEmail"
+                                @signinUserWithEmail="signInUserWithEmail"
                             />
                         </v-form>
                     </v-card>
                     <v-layout justify-center mt-3>
                         <v-btn
-                            @click="signinUserWithGoogle"
+                            @click="signInUserWithGoogle"
                             class="secondary justify-center"
                             depressed
                             >Sign in with Google</v-btn
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { firebase, auth } from "@/fire";
+//import { auth } from "@/fire";
 //import { pick } from 'lodash'
 
 export default {
@@ -66,97 +66,60 @@ export default {
         loading: false
     }),
     methods: {
-        async registerUserWithEmail() {
+        async signUpUserWithEmail() {
             if (this.$refs.form.validate()) {
                 this.toggleLoading();
 
                 try {
-                    const signIn = await auth.createUserWithEmailAndPassword(this.email, this.password);
-                    console.log(signIn)
-                    await this.$store.dispatch('saveUser', signIn);
+                    const user = await this.$store.dispatch({ 
+                        type: "signUpUserWithEmail",
+                        email: this.email,
+                        password: this.password
+                    });
                     this.$router.push(
-                        { path: `user/${signIn.user.uid}/settings` }
+                        { path: `user/${user.uid}/settings` }
                     );
-                }
+                } 
                 catch (err) {
                     this.throwError(err);
-                }
+                } 
                 finally {
                     this.toggleLoading();
                 }
-
-
-                // this.$store
-                //     .dispatch({
-                //         type: "registerUserWithEmail",
-                //         email: this.email,
-                //         password: this.password
-                //     })
-                //     .then(() => {
-                //         this.firebaseAddUser();
-                //         this.toggleLoading();
-                //         this.$router.push({ name: "dashboard" });
-                //     })
-                //     .catch(err => this.throwError(err));
             }
         },
-        async signinUserWithEmail() {
+        async signInUserWithEmail() {
             if (this.$refs.form.validate()) {
                 this.toggleLoading();
-                // this.$store
-                //     .dispatch({
-                //         type: "signinUserWithEmail",
-                //         email: this.email,
-                //         password: this.password
-                //     })
-                //     .then(() => {
-                //         this.$router.push({ name: "dashboard" });
-                //         this.toggleLoading();
-                //     })
-                //     .catch(err => this.throwError(err));
+
+                try {
+                    await this.$store.dispatch({ 
+                        type: "signInUserWithEmail",
+                        email: this.email,
+                        password: this.password
+                    });
+                    this.$router.push({ name: "dashboard" });
+
+                } 
+                catch (err) {
+                    this.throwError(err);
+                } 
+                finally {
+                    this.toggleLoading();
+                }
             }
-
-
-            // registerUserWithEmail(context, payload) {
-            //     return new Promise((resolve, reject) => {
-            //         auth.createUserWithEmailAndPassword(payload.email, payload.password)
-            //             .then(response => {
-            //                 context.commit({
-            //                     type: 'setUser',
-        //                     user: response.user,
-        //                     token: null,
-        //                 });
-        //                 resolve(response);
-        //             }).catch(error => {
-        //                 reject(error);
-        //             });
-        //     });
-        // },
-        // setUser(context, user) {
-        //     context.commit({
-        //         type: 'setUser',
-        //         user: user,
-        //     });
-        // },
         },
-        async signinUserWithGoogle() {
+        async signInUserWithGoogle() {
             this.toggleLoading();
 
-            const provider = new firebase.auth.GoogleAuthProvider();
-
             try {
-                const signIn = await auth.signInWithPopup(provider);
-                console.log(signIn, "can push router now");
-
-                if (signIn.additionalUserInfo.isNewUser) {
-                    await this.$store.dispatch("saveUser", signIn);
-                } else {
-                    await this.$store.dispatch("getUser");
-                }
+                await this.$store.dispatch({ type: "signInUserWithGoogle" });
                 this.$router.push({ name: "dashboard" });
-            } catch (err) {
+            } 
+            catch (err) {
                 this.throwError(err);
-            } finally {
+            } 
+            finally {
                 this.toggleLoading();
             }
         },
