@@ -53,24 +53,31 @@
 </template>
 
 <script>
-import _ from "lodash";
+import { isEmpty } from "lodash";
 
 export default {
     name: "Toolbar",
     data: () => ({
         drawer: true,
-        loading: false,
-        settingsMenu: [
-            { title: "Find Rescue", icon: "group", route: "/group/find" },
-            { title: "Rescue", icon: "group", route: "/group/edit" },
-            { title: "Sign Out", icon: "exit_to_app", route: "/logout" }
-        ]
+        loading: false
     }),
     computed: {
-        user() {
-            return _.isEmpty(this.$store.state.auth.user)
+        user: function() {
+            return isEmpty(this.$store.state.auth.user)
                 ? null
                 : this.$store.state.auth.user;
+        },
+        settingsMenu: function() {
+            return [
+                { title: "Find Rescue", icon: "group", route: "/group/find" },
+                { title: "Rescue", icon: "group", route: "/group/edit" },
+                {
+                    title: "Settings",
+                    icon: "settings",
+                    route: `user/${this.user.uid}/settings`
+                },
+                { title: "Sign Out", icon: "exit_to_app", route: "/logout" }
+            ];
         }
     },
     methods: {

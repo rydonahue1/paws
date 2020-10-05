@@ -3,11 +3,10 @@
 </template>
 
 <script>
-    export default {
-        name: "Home",
-        data: () => ({})
-    };
+export default {
+    name: "Home",
+    data: () => ({})
+};
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -9,9 +9,9 @@ const state = {
 const getters = {}
 
 const mutations = {
-    setUser(state, payload) {
-        console.log(payload.user)
-        state.user = payload.user;
+    setUser(state, user) {
+        console.log(user)
+        state.user = user;
     },
     unsetUser(state) {
         state.user = {};
@@ -30,30 +30,31 @@ const actions = {
     },
     async signInUserWithEmail(context, payload) {
             const res = await auth.signInWithEmailAndPassword(payload.email, payload.password)
-            context.commit({
-                type: 'setUser',
-                user: res.user,
-            });
+            // context.commit({
+            //     type: 'setUser',
+            //     user: res.user,
+            // });
+            return res.user;
     },
-    async signInUserWithGoogle(context) {
+    async signInUserWithGoogle() {
         const provider = new firebase.auth.GoogleAuthProvider();
         const res = await auth.signInWithPopup(provider)
-        context.commit({ 
-            type: 'setUser', 
-            user: res.user, 
-        });
+        // context.commit({ 
+        //     type: 'setUser', 
+        //     user: res.user, 
+        // });
 
         return res.user;
     },
-    async signOut(context) {
+    async signOut() {
         const res = await auth.signOut()
-        context.commit({ type: 'unsetUser' });
+        //context.commit({ type: 'unsetUser' });
 
         return res;
     },
-    unsetUser(context) {
-        context.commit({ type: 'unsetUser' });
-    },
+    // unsetUser(context) {
+    //     context.commit({ type: 'unsetUser' });
+    // },
 }
 
 export default {

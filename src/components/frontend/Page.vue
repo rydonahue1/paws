@@ -3,11 +3,10 @@
 </template>
 
 <script>
-    export default {
-        name: "Page",
-        data: () => ({})
-    };
+export default {
+    name: "Page",
+    data: () => ({})
+};
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

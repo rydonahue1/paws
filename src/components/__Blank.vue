@@ -1,15 +1,12 @@
 <template>
-    <div>
-    </div>
+    <div></div>
 </template>
 
 <script>
-    export default {
-        name: "Toolbar",
-        data: () => ({})
-    }
+export default {
+    name: "Toolbar",
+    data: () => ({})
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

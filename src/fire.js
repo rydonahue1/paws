@@ -22,7 +22,7 @@ const auth = firebase.auth();
 
 auth.onAuthStateChanged(async function (user) {
     if (user) {
-        store.dispatch('getUser');
+        store.commit('setUser', user);
     } else {
         store.commit('unsetUser');
     }

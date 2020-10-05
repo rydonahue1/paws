@@ -1,9 +1,119 @@
 <template>
-  <v-container>
+    <v-container>
         <h1 class="font-weight-light text-uppercase">Settings</h1>
         <h3 class="text-uppercase primary--text text--darken-2">
             Tell us about yourself
         </h3>
+        <v-card max-width="375" class="mx-auto">
+            <v-img :src="user.photoURL" height="300px" dark>
+                <v-row class="fill-height">
+                    <v-card-title>
+                        <v-btn dark icon>
+                            <v-icon>mdi-chevron-left</v-icon>
+                        </v-btn>
+
+                        <v-spacer></v-spacer>
+
+                        <v-btn dark icon class="mr-4">
+                            <v-icon>mdi-pencil</v-icon>
+                        </v-btn>
+
+                        <v-btn dark icon>
+                            <v-icon>mdi-dots-vertical</v-icon>
+                        </v-btn>
+                    </v-card-title>
+
+                    <v-dialog width="600px">
+                        <template #activator="{ on, attrs }">
+                            <v-btn
+                                color="primary"
+                                dark
+                                v-bind="attrs"
+                                v-on="on"
+                            >
+                                <v-icon>mdi-pencil</v-icon>
+                            </v-btn>
+                        </template>
+                        <v-card elevation="2" tile>
+                            <v-card-title>
+                                <span class="headline">Save profile image</span>
+                            </v-card-title>
+                            <v-card-text>
+                                <image-drop-zone></image-drop-zone>
+                            </v-card-text>
+                        </v-card>
+                    </v-dialog>
+
+                    <v-spacer></v-spacer>
+
+                    <v-card-title class="white--text pl-12 pt-12">
+                        <div class="display-1 pl-12 pt-12">
+                            {{ user.displayName }}
+                        </div>
+                    </v-card-title>
+                </v-row>
+            </v-img>
+
+            <v-list two-line>
+                <v-list-item>
+                    <v-list-item-icon>
+                        <v-icon color="cyan">
+                            mdi-phone
+                        </v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-content>
+                        <v-list-item-title>{{
+                            user.phone || "None"
+                        }}</v-list-item-title>
+                        <v-list-item-subtitle>Mobile</v-list-item-subtitle>
+                    </v-list-item-content>
+
+                    <v-list-item-icon>
+                        <v-icon>mdi-pencil</v-icon>
+                    </v-list-item-icon>
+                </v-list-item>
+                <v-divider inset></v-divider>
+
+                <v-list-item>
+                    <v-list-item-icon>
+                        <v-icon color="cyan">
+                            mdi-email
+                        </v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-content>
+                        <v-list-item-title>{{ user.email }}</v-list-item-title>
+                        <v-list-item-subtitle>Email</v-list-item-subtitle>
+                    </v-list-item-content>
+
+                    <v-list-item-icon>
+                        <v-icon>mdi-pencil</v-icon>
+                    </v-list-item-icon>
+                </v-list-item>
+
+                <v-divider inset></v-divider>
+
+                <v-list-item>
+                    <v-list-item-icon>
+                        <v-icon color="cyan">
+                            mdi-map-marker
+                        </v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-content>
+                        <v-list-item-title>1400 Main Street</v-list-item-title>
+                        <v-list-item-subtitle
+                            >Orlando, FL 79938</v-list-item-subtitle
+                        >
+                    </v-list-item-content>
+
+                    <v-list-item-icon>
+                        <v-icon>mdi-pencil</v-icon>
+                    </v-list-item-icon>
+                </v-list-item>
+            </v-list>
+        </v-card>
         <v-row>
             <v-col>
                 <v-form>
@@ -107,8 +217,13 @@
 </template>
 
 <script>
+import ImageDropZone from "@/components/Images/ImageDropZone";
+
 export default {
     name: "UserSettings",
+    components: {
+        'image-drop-zone': ImageDropZone
+    },
     data: () => ({
         form: {
             place_id: "",
@@ -122,7 +237,7 @@ export default {
             },
             phone: "",
             geometry: {}
-        },
+        }
     }),
     computed: {
         states() {
@@ -131,7 +246,7 @@ export default {
         user() {
             return this.$store.state.auth.user;
         }
-    },  
+    }
 };
 </script>
 
