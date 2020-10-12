@@ -23,7 +23,7 @@
                         </v-btn>
                     </v-card-title>
 
-                    <v-dialog width="600px">
+                    <v-dialog fullscreen>
                         <template #activator="{ on, attrs }">
                             <v-btn
                                 color="primary"
@@ -39,7 +39,7 @@
                                 <span class="headline">Save profile image</span>
                             </v-card-title>
                             <v-card-text>
-                                <image-drop-zone></image-drop-zone>
+                                <single-image-upload></single-image-upload>
                             </v-card-text>
                         </v-card>
                     </v-dialog>
@@ -217,12 +217,12 @@
 </template>
 
 <script>
-import ImageDropZone from "@/components/Images/ImageDropZone";
+import SingleImageUpload from "@/modules/Images/SingleImageUpload";
 
 export default {
     name: "UserSettings",
     components: {
-        'image-drop-zone': ImageDropZone
+        'single-image-upload': SingleImageUpload
     },
     data: () => ({
         form: {

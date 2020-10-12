@@ -74,7 +74,7 @@ export default {
                 {
                     title: "Settings",
                     icon: "settings",
-                    route: `user/${this.user.uid}/settings`
+                    route: `/user/${this.user.uid}/settings`
                 },
                 { title: "Sign Out", icon: "exit_to_app", route: "/logout" }
             ];
