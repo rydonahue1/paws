@@ -34,7 +34,7 @@
             <ul>
                 <li v-for="(image, index) in pending.images" :key="index">
                     <v-img
-                        :src="image"
+                        :src="image.path"
                         aspect-ratio="1"
                         max-width="200"
                     ></v-img>

@@ -1,4 +1,4 @@
-//import { firebase, auth } from '@/fire'
+//import { firebase } from '@/fire'
 //import { get, pick } from 'lodash'
 
 const state = {
@@ -12,6 +12,7 @@ const getters = {}
 const mutations = {
     ADD_PENDING_IMAGE(state, { image }) {
         state.pending.images = [...state.pending.images, image];
+        console.log(state.pending)
     },
     REMOVE_PENDING_IMAGE(state, { index }) {
         state.pending.images.splice(index, 1);
@@ -24,7 +25,12 @@ const actions = {
             const path = await dispatch('readFile', file);
             commit({
                 type: 'ADD_PENDING_IMAGE',
-                image: path,
+                image: {
+                    name: file.name,
+                    type: file.type,
+                    size: file.size,
+                    path: path,
+                },
             })
         })
     },

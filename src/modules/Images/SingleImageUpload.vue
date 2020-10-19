@@ -8,13 +8,13 @@
         <v-tabs-items v-model="tab">
             <v-tab-item>
                 <v-card flat>
-                    <v-card-text v-text="text"></v-card-text>
-                    <image-drop-zone> </image-drop-zone>
+                    <v-card-text></v-card-text>
+                    <image-drop-zone collection="users" :document="user.uid"> </image-drop-zone>
                 </v-card>
             </v-tab-item>
             <v-tab-item>
                 <v-card flat>
-                    <v-card-text v-text="text"></v-card-text>
+                    <v-card-text></v-card-text>
                     <image-cropper> </image-cropper>
                 </v-card>
             </v-tab-item>
@@ -24,8 +24,11 @@
 </template>
 
 <script>
+
 import ImageDropZone from "./ImageDropZone";
 import ImageCropper from "./ImageCropper";
+import { mapState } from "vuex";
+
 
 export default {
     components: {
@@ -34,7 +37,10 @@ export default {
     },
     data: () => ({
         tab: null
-    })
+    }),
+    computed: {
+        ...mapState('auth', ['user']),
+    }
 };
 </script>
 

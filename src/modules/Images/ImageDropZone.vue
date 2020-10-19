@@ -33,48 +33,40 @@
 
         <div class="image-list">
             <ul>
-                <li v-for="(image, index) in pending.images" :key="index">                   
-                    <v-img
-                        :src="image"
-                        aspect-ratio="1"
-                        max-width="200"
-                    ></v-img>
-                    <button
-                        type="button"
-                        @click="remove(images.indexOf(image))"
-                        title="Remove file"
-                    >
-                        <v-icon>mdi-delete</v-icon>
-                    </button>
-                </li>
+                <ImageUploadTask v-for="(image, index) in images" :image="image" :path="path" :key="index"></ImageUploadTask>
             </ul>
         </div>
     </div>
 </template>
 
 <script>
+//import { storage } from "@/fire";
+//import { mapActions } from 'vuex'
 
-import { mapState, mapActions } from 'vuex'
+import ImageUploadTask from './ImageUploadTask';
 
 export default {
     name: "ImageDropZone",
+    components: {
+        ImageUploadTask
+    },
+    props: {
+        document: String,
+        collection: String
+    },
     data: () => ({
-        defaultImage: '/sunrisesunsettime.jpg',
         files: [],
         images: [],
     }),
     computed: {
-        ...mapState('images', ['pending'])
-    },
-    watch: {
-        imageBeingCropped: function() {
-            this.cropper.replace(this.imageBeingCropped);
+        path: function() {
+            return `${this.collection}/${this.document}/`;
         }
     },
     methods: {
         change() {
             this.files = [...this.$refs.file.files];
-            this.readImages(this.$refs.file.files);
+            //this.readImages(this.$refs.file.files);
         },
         remove(i) {
             this.removeImage(i);
@@ -92,20 +84,26 @@ export default {
         },
         drop(event) {
             event.preventDefault();
+            console.log(event)
             this.$refs.file.files = event.dataTransfer.files;
-            this.files = [...this.$refs.file.files]
-            this.readImages(this.$refs.file.files);
+
+            event.dataTransfer.files.forEach(file => {
+                console.log(file)
+                this.images.push(file);
+            });
+            //this.images = this.$refs.file.files;
+            // this.upload(this.$refs.file.files);
+            //this.readImages(this.$refs.file.files);
             //this.onChange(); // Trigger the onChange event manually
             // Clean up
             event.currentTarget.classList.remove("is-drag-over");
         },
-        ...mapActions('images', ['readImages', 'removeImage'])
-    },
+        //...mapActions('images', ['readImages', 'removeImage'])
+    }
 };
 </script>
 
 <style lang="scss" scoped>
-
 .drop-zone {
     display: flex;
     flex-flow: column nowrap;
@@ -124,7 +122,7 @@ export default {
 
 .cropper-container {
     img {
-         display: block;
+        display: block;
         /* This rule is very important, please don't ignore this */
         max-width: 100%;
     }

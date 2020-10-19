@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
+import 'firebase/storage'
 import store from '@/store/store'
 
 
@@ -19,12 +20,13 @@ firebase.initializeApp(firebaseConfig);
 // utils
 const db = firebase.firestore();
 const auth = firebase.auth();
+const storage = firebase.storage()
 
 auth.onAuthStateChanged(async function (user) {
     if (user) {
-        store.commit('setUser', user);
+        store.commit('auth/setUser', user);
     } else {
-        store.commit('unsetUser');
+        store.commit('auth/unsetUser');
     }
 });
 
@@ -40,6 +42,7 @@ export {
     db,
     auth,
     firebase,
+    storage,
     // usersCollection,
     // postsCollection,
     // commentsCollection,
